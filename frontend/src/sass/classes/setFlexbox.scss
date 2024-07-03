@@ -1,0 +1,194 @@
+﻿@import "../mixins/setMixins.scss";
+
+@for $i from 1 through 20 {
+    .--flex-#{$i}{
+        flex: $i;
+        -webkit-box-flex: $i;
+        -ms-flex: $i;
+    }
+}
+@for $i from 1 through 20 {
+    .--order-#{$i} {
+        order: $i;
+    }
+}
+
+@for $i from 1 through 50 {
+    .--fgap-#{$i}{
+        gap: #{$i}px;
+    }
+}
+
+
+[class^="--f-"],
+[class*=" --f-"],
+[class^="--frow-"],
+[class*=" --frow-"],
+[class^="--fcol-"],
+[class*=" --fcol-"]{
+    @include mx-flex;
+}
+
+[class^="--frow-"]{
+    @include mx-flex-row;
+    &.--row-reverse {
+        flex-direction: row-reverse;
+    }
+}
+
+[class^="--fcol-"]{
+    @include mx-flex-column;
+}
+
+.--f-reverse {
+    flex-direction: row-reverse;
+}
+
+.--f-center{
+    @include mx-flex-align-center;
+    @include mx-flex-justify-center;
+}
+
+.--frow-strech{
+    @include mx-flex-align-strech;
+}
+
+.--frow-center{
+    @include mx-flex-align-center;
+}
+
+.--frow-centerbetween{
+    @include mx-flex-align-center;
+    @include mx-flex-justify-between;
+}
+
+.--frow-centeraround{
+    @include mx-flex-align-center;
+    @include mx-flex-justify-around;
+}
+
+/*----*/
+.--frow-centerend{
+    @include mx-flex-align-center;
+    @include mx-flex-justify-end;
+}
+.--frow-centerstart{
+    @include mx-flex-align-center;
+    @include mx-flex-justify-start;
+}
+
+.--frow-startbetween{
+    @include mx-flex-align-start;
+    @include mx-flex-justify-between;
+}
+
+.--frow-startaround{
+    @include mx-flex-align-start;
+    @include mx-flex-justify-around;
+}
+
+.--frow-startend{
+    @include mx-flex-align-start;
+    @include mx-flex-justify-end;
+}
+
+.--frow-start{
+    @include mx-flex-align-start;
+    @include mx-flex-justify-start;
+}
+
+
+.--frow-endbetween{
+    @include mx-flex-align-end;
+    @include mx-flex-justify-between;
+}
+
+.--frow-endaround{
+    @include mx-flex-align-end;
+    @include mx-flex-justify-around;
+}
+
+.--frow-end{
+    @include mx-flex-align-end;
+    @include mx-flex-justify-end;
+}
+
+.--frow-endstart{
+    @include mx-flex-align-end;
+    @include mx-flex-justify-start;
+}
+
+.--fcol{
+    @include mx-flex;
+    @include mx-flex-column;
+}
+
+.--fcol-center{
+    @include mx-flex-align-center;
+}
+
+.--fcol-centerbetween{
+    @include mx-flex-align-center;
+    @include mx-flex-justify-between;
+}
+
+.--fcol-centeraround{
+    @include mx-flex-align-center;
+    @include mx-flex-justify-around;
+}
+
+.--fcol-centerend{
+    @include mx-flex-align-center;
+    @include mx-flex-justify-end;
+}
+
+.--fcol-centerstart{
+    @include mx-flex-align-center;
+    @include mx-flex-justify-start;
+}
+
+.--fcol-startbetween{
+    @include mx-flex-align-start;
+    @include mx-flex-justify-between;
+}
+
+.--fcol-startaround{
+    @include mx-flex-align-start;
+    @include mx-flex-justify-around;
+}
+
+.--fcol-startend{
+    @include mx-flex-align-start;
+    @include mx-flex-justify-end;
+}
+
+.--fcol-start{
+    @include mx-flex-align-start;
+    @include mx-flex-justify-start;
+}
+
+.--fcol-endbetween{
+    @include mx-flex-align-end;
+    @include mx-flex-justify-between;
+}
+
+.--fcol-endaround{
+    @include mx-flex-align-end;
+    @include mx-flex-justify-around;
+}
+
+.--fcol-end{
+    @include mx-flex-align-end;
+    @include mx-flex-justify-end;
+}
+
+.--fcol-endstart{
+    @include mx-flex-align-end;
+    @include mx-flex-justify-start;
+}
+
+.--row-wrap {
+    flex-flow: row wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}

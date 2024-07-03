@@ -1,0 +1,347 @@
+﻿@mixin mx-grid-auto($value) {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+    -ms-grid-columns: repeat($value,auto);
+    grid-template-columns: repeat($value,auto);
+}
+@mixin mx-grid($value) {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+    -ms-grid-columns: repeat($value,1fr);
+    grid-template-columns: repeat($value,1fr);
+}
+@mixin mx-grid-gap($value) {
+    grid-column-gap: ($value * 0.06)+rem;
+    grid-row-gap: ($value * 0.06)+rem;
+}
+@mixin mx-grid-undef() {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
+    -ms-grid-columns: auto;
+    grid-template-columns: auto;
+}
+
+
+@mixin mx-flex() {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+@mixin mx-flex-row() {
+    flex-direction: row;
+}
+@mixin mx-flex-column() {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+@mixin mx-flex-align-strech() {
+    align-items: stretch;
+}
+@mixin mx-flex-align-center($important: false) {
+    @if($important) {
+        -webkit-box-align: center !important;
+        -webkit-align-items: center !important;
+        -ms-flex-align: center !important;
+        align-items: center !important;
+    }
+    @else {
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+}
+@mixin mx-flex-align-start($important: false) {
+    @if($important) {
+        -webkit-box-align: start !important;
+        -webkit-align-items: flex-start !important;
+        -ms-flex-align: start !important;
+        align-items: flex-start !important;
+    }
+    @else {
+        -webkit-box-align: start;
+        -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+    }
+}
+@mixin mx-flex-align-end() {
+    -webkit-box-align: end;
+    -webkit-align-items: flex-end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+}
+@mixin mx-flex-justify-start($important: false) {
+    @if($important) {
+        -webkit-justify-content: flex-start !important;
+        -ms-flex-pack: start !important;
+        justify-content: flex-start !important;
+    }
+    @else {
+        -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+    }
+}
+@mixin mx-flex-justify-center($important: false) {
+    @if($important) {
+        -webkit-justify-content: center !important;
+        -ms-flex-pack: center !important;
+        justify-content: center !important;
+    }
+    @else {
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+}
+@mixin mx-flex-justify-end() {
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+@mixin mx-flex-justify-between() {
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+@mixin mx-flex-justify-around() {
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+}
+@mixin mx-flex-center() {
+    @include mx-flex-align-center();
+    @include mx-flex-justify-center();
+}
+@mixin mx-flex-row-center-between() {
+    @include mx-flex-row();
+    @include mx-flex-align-center();
+    @include mx-flex-justify-between();
+}
+@mixin mx-flex-row-center-end() {
+    @include mx-flex-row();
+    @include mx-flex-align-center();
+    @include mx-flex-justify-end();
+}
+@mixin mx-flex-row-center-start() {
+    @include mx-flex-row();
+    @include mx-flex-align-center();
+    @include mx-flex-justify-start();
+}
+@mixin mx-flex-row-strech-between() {
+    @include mx-flex-row();
+    @include mx-flex-align-strech();
+    @include mx-flex-justify-between();
+}
+
+
+@mixin for-size($range) {
+
+    $phone-upper-boundary: 600px;
+    $tablet-portrait-upper-boundary: 900px;
+    $tablet-landscape-upper-boundary: 1281px;
+    $desktop-upper-boundary: 1360px;
+    $big-desktop-upper-boundary: 1500px;
+
+    @if $range == phone-only {
+        @media (max-width: #{$phone-upper-boundary - 1}) {
+            @content;
+        }
+    }
+    @else if $range == tablet-portrait-up {
+        @media (min-width: $phone-upper-boundary) {
+            @content;
+        }
+    }
+    @else if $range == tablet-landscape-up {
+        @media (min-width: $tablet-portrait-upper-boundary) {
+            @content;
+        }
+    }
+    @else if $range == desktop-up {
+        @media (min-width: $tablet-landscape-upper-boundary) {
+            @content;
+        }
+    }
+    @else if $range == def-desktop-up {
+        @media (min-width: $desktop-upper-boundary) {
+            @content;
+        }
+    }
+    @else if $range == big-desktop-up {
+        @media (min-width: $big-desktop-upper-boundary) {
+            @content;
+        }
+    }
+}
+
+@mixin mx-responsive($range) {
+
+    @media (min-width: $range) {
+        @content;
+    }
+}
+
+@mixin mx-responsive-h($range) {
+
+    @media (max-height: $range) {
+        @content;
+    }
+}
+
+@mixin mx-scroll {
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 15px;
+        height: 15px;
+        background-color: #ffffff;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #d4d4d4;
+        border-radius: 10px;
+        border: 5px solid transparent;
+        background-clip: padding-box;
+
+        &:hover {
+            background-color: #b7b7b7;
+        }
+    }
+}
+@mixin mx-scroll-h {
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 15px;
+        height: 15px;
+        background-color: #ffffff;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #d4d4d4;
+        border-radius: 10px;
+        border: 5px solid transparent;
+        background-clip: padding-box;
+
+        &:hover {
+            background-color: #b7b7b7;
+        }
+    }
+}
+@mixin mx-scroll-l {
+    overflow: auto;
+    direction: rtl;
+    
+    * {  
+        direction: ltr;
+    }
+
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+        background-color: #ffffff;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #d4d4d4;
+        border-radius: 7px;
+        border: 3px solid transparent;
+        background-clip: padding-box;
+
+        &:hover {
+            background-color: #b7b7b7;
+        }
+    }
+}
+
+@mixin mx-tooltip{
+    display: none;
+    background-color: #ffffff;
+    position: absolute;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 15px 50px 0px rgba(82, 63, 105, 0.5);
+    box-shadow: 0px 15px 50px 0px rgba(82, 63, 105, 0.5);
+    padding: 10px 0;
+    z-index: 99;
+    padding: 20px;
+}
+
+@mixin mx-slider {
+
+    .woo-slider__bar {
+        background: #ebebeb;
+
+        .ui-slider-range {
+            background: #009ef7;
+        }
+
+
+        span.ui-slider-handle {
+            top: -3px !important;
+            width: 15px !important;
+            height: 15px !important;
+            border: 1px solid #d5d5d5;
+            box-shadow: 0px 3px 6px -3px rgba(0, 0, 0, 0.12);
+            border-radius: 50%;
+            background: #fff !important;
+
+            &:hover {
+                border: 1px solid #d5d5d5;
+                box-shadow: 0px 3px 6px -3px rgba(0, 0, 0, 0.12);
+                background: #fff !important;
+            }
+        }
+
+        span.ui-slider-pip {
+            margin-top: 20px;
+            color: #000 !important;
+
+            .ui-slider-line {
+                display: none;
+            }
+
+            .ui-slider-label {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .woo-slider__values {
+        margin-top: 10px;
+        @include mx-flex();
+        @include mx-flex-align-center();
+        @include mx-flex-justify-between();
+
+        label {
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+    }
+}

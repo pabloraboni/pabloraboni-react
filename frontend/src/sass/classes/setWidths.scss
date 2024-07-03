@@ -1,0 +1,13 @@
+@import "../mixins/setMixins.scss";
+
+.--wd-50 {
+    width: 50%;
+}
+.--wd-100 {
+    width: 100%;
+}
+
+.--wd-fix-400{
+    width: 100%;
+    max-width: 400px;
+}

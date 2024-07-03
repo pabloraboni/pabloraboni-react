@@ -1,0 +1,115 @@
+@import "../sass/importMixins.scss";
+
+.pr-message{
+    position: fixed;
+    right: 50px;
+    top: 20px;
+    border-radius: 7px;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+
+    @include mx-flex();
+    @include mx-flex-row();
+    @include mx-flex-align-start();
+    gap:15px;
+    box-shadow: 1px 1px 10px 5px #00000008;
+
+    transition: transform 0.5s ease, opacity 0.5s ease;
+
+    .pr-message__icon{
+        font-family: 'icomoon' !important;
+        font-size: 1.2em;
+        margin-top: 1px;
+    }
+    .pr-message__items{
+        @include mx-flex();
+        @include mx-flex-column();
+        gap:5px;
+        flex:1;
+        font-size: 0.9em;
+    }
+    .pr-message__close{
+        font-family: 'icomoon' !important;
+        @include mx-flex();
+        @include mx-flex-center();
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        background: #0000000f;
+        color: #7c7c7c;
+        font-size: 0.8em;
+        text-transform: none;
+        border: 0;
+        cursor: pointer;
+        &:before{
+            content: "\e9f6";
+        }
+    }
+    
+    &.--warning{
+        background: #ffe2c7;
+        border: 1px solid #ffd3a9;
+        .pr-message__icon:before{
+            content: "\e9fa";
+            color: #ffac5e;
+        }
+    }
+    &.--positive{
+        background: #c7e9ff;
+        border: 1px solid #a9ddff;
+        .pr-message__icon:before{
+            content: "\e9fa";
+            color: #0095f6;
+        }
+    }
+    &.--enter {
+        animation: slideInRight 0.5s forwards;
+    }
+    &.--exit {
+        animation: slideOutRight 0.5s forwards;
+    }
+}
+
+.pr-message__loading-bar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 4px;
+    background-color: #00000020;
+    animation: loadingBar 5s linear;
+    overflow: hidden;
+}
+
+@keyframes loadingBar {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes slideOutRight {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+

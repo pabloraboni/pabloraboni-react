@@ -1,0 +1,71 @@
+.pr-box__form {
+
+    .pr-box__input {
+      @include mx-flex();
+      @include mx-flex-column();
+      gap: 10px;
+  
+      span,
+      label {
+        font-size: 0.9em;
+      }
+
+      &.--legend-hide{
+        span,
+        label {
+          display: none;
+        }
+      }
+
+      &.--inline{
+        @include mx-flex-row();
+        @include mx-flex-align-center();
+        gap: 20px;
+      }
+        
+      textarea,
+      input[type="tel"],
+      input[type="Text"],
+      input[type="pass"],
+      input[type="email"],
+      input[type="password"],
+      textarea,
+      select {
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 7px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0 20px;
+        min-height: 45px;
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        box-sizing: border-box;
+        transition: 0.2s;
+      }
+  
+      textarea {
+        min-height: 60px;
+        padding-top: 10px;
+      }
+
+      &.--icon{
+        position: relative;
+        @include mx-flex-row();
+        @include mx-flex-align-center();
+        span{
+          position: absolute;
+          left: 15px;
+        }
+        input{
+          padding-left: 40px;
+        }
+      }
+
+    }
+
+    kpm-field-badge{
+      display: none;
+    }
+
+  }

@@ -1,0 +1,16 @@
+﻿@import "../mixins/setMixins.scss";
+
+@for $i from 1 through 20 {
+    .--grid-#{$i}{
+        @include mx-grid($i);
+    }
+    .--grid-#{$i}-auto {
+        @include mx-grid-auto($i);
+    }
+}
+@for $i from 1 through 30 {
+    .--ggap-#{$i}{
+        grid-column-gap: ($i * 0.06)+rem;
+        grid-row-gap: ($i * 0.06)+rem;
+    }
+}

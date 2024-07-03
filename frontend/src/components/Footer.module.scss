@@ -1,0 +1,28 @@
+@import "../sass/importMixins.scss";
+.pr-box__footer {
+
+  background: #ffffff;
+  border-top: 1px solid #eaeaea;
+  width: 100%;
+
+  .pr-footer__content {
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    box-sizing: border-box;
+  }
+
+  p{
+    flex: 1;
+    margin: 0;
+    font-size: 0.7em;
+  }
+
+  img {
+    width: 120px;
+  }
+
+}

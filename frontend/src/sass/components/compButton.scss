@@ -1,0 +1,97 @@
+@import "../importMixins.scss";
+
+.pr-button {
+
+    background-color: none;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+    
+    @include mx-flex();
+    @include mx-flex-center();
+    gap:20px;
+    padding: 0 20px;
+    width: auto;
+    min-width: 120px;
+    min-height: 50px;
+    border: 0;
+    box-sizing: border-box;
+    transition: .4s;
+    font-size: 0.8em;
+    background: $primary-color;
+    color: #fff;
+    border-radius: 10px;
+    border: 1px solid $primary-color;
+    text-decoration: none;
+
+    &:hover:not([disabled]){
+        opacity: 0.7;
+    }
+    &.--negative {
+        background: none;
+        color: #b32828;
+        border-color: #b32828;
+        &:hover {
+            opacity: 0.7;
+        }
+        span{
+            color: #b32828;
+        }
+    }
+    &.--primary{
+        background: $primary-color;
+        border-color: $primary-color;
+    }
+    &.--outline{
+        background: none;
+        color: $primary-color;
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+    &.--icon{
+        min-width: 0;
+        width: 50px;
+        font-size: 1.5em;
+        line-height: 1;
+        &.--small{
+            width: 42px;
+            height: 42px;
+            min-height: 0;
+        }
+    }
+    &.--onlyicon{
+        background: none;
+        border: 0;
+        color: #333;
+        font-size: 1.2em;
+    }
+
+    &.--loading{
+        &:after{
+            content: "";
+            border: 1px solid transparent; /* Light grey */
+            border-top: 2px solid #fff; /* Red */
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            animation: spin 1s linear infinite;
+        }
+    }
+
+    &.--small{
+        width: auto;
+        min-width: 100px;
+        min-height: 35px;
+    }
+
+    &[disabled]{
+        cursor: default;
+    }
+
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

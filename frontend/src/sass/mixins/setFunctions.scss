@@ -1,0 +1,5 @@
+﻿@function calc-rem ($valor) {
+
+    @return 0.06 * $valor;
+
+}
