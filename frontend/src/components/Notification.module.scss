@@ -1,0 +1,49 @@
+@import "../sass/importMixins.scss";
+
+.pr-message{
+
+    border-radius: 7px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+
+    @include mx-flex();
+    @include mx-flex-row();
+    @include mx-flex-align-start();
+    gap:15px;
+    box-shadow: 1px 1px 10px 5px #00000008;
+
+
+    .pr-message__icon{
+        font-family: 'icomoon' !important;
+        font-size: 1.2em;
+        margin-top: -1px;
+    }
+    .pr-message__items{
+        @include mx-flex();
+        @include mx-flex-column();
+        gap:5px;
+        flex:1;
+        p{
+            font-size: 0.9em;
+            font-weight: 400;
+        }
+    }
+
+    &.--warning{
+        background: #ffe2c7;
+        border: 1px solid #ffd3a9;
+        .pr-message__icon:before{
+            content: "\e9fa";
+            color: #ffac5e;
+        }
+    }
+    &.--positive{
+        background: #c7e9ff;
+        border: 1px solid #a9ddff;
+        .pr-message__icon:before{
+            content: "\e9fa";
+            color: #0095f6;
+        }
+    }
+}

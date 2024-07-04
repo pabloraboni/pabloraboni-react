@@ -1,5 +1,15 @@
 @import "../importMixins.scss";
 
+button{
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: none;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
 .pr-button {
 
     background-color: none;
@@ -88,8 +98,9 @@
     &[disabled]{
         cursor: default;
     }
-
 }
+
+
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

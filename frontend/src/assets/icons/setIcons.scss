@@ -22,6 +22,12 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.pr-icon-heart:before {
+    content: "\e98d";
+}
+.pr-icon-heart-outline:before {
+    content: "\e98e";
+}
 .pr-icon-camera-2:before {
   content: "\e980";
 }

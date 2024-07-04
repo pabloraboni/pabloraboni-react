@@ -31,14 +31,13 @@ const router = createBrowserRouter([
       {
         path:"/",
         element: (<ProtectedRoute><Home /></ProtectedRoute>)
-        
-      },
-      {
-        path:"/profile/:id",
-        element: (<ProtectedRoute><Profile /></ProtectedRoute>)
       },
       {
         path:"/users/:id",
+        element: (<ProtectedRoute><Profile /></ProtectedRoute>)
+      },
+      {
+        path:"/profile",
         element: (<ProtectedRoute><EditProfile /></ProtectedRoute>)
       },
       {

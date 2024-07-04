@@ -45,7 +45,7 @@ const Header = () => {
 
 
   return (
-    <section className={styles["pr-box__header"]}>
+    <header className={styles["pr-box__header"]}>
       <div className="pr-container">
         <div className={styles["pr-header__content"]}>
           {/* <NavLink to="/" className={styles["pr-header__logo"]}><img src="https://assets-global.website-files.com/60323d6e5881a62c5b5fd596/6316c7723c13eda78705db88_p-logo.svg"></img></NavLink> */}
@@ -77,10 +77,14 @@ const Header = () => {
                 <NavLink to="/" className={styles["pr-menu__item"]}>
                   <span className="pr-icon-home --font-15"></span>
                 </NavLink>
-                <NavLink to={`/profile/${user._id}`} className={styles["pr-menu__item"]}>
-                  <span className="pr-icon-camera-3 --font-17"></span>
-                </NavLink>
-                <NavLink to={`/users/${user._id}`} className={styles["pr-menu__item"]}>
+                {
+                  user && (
+                    <NavLink to={`/users/${user._id}`} className={styles["pr-menu__item"]}>
+                      <span className="pr-icon-camera-3 --font-17"></span>
+                    </NavLink>
+                  )
+                }
+                <NavLink to={`/profile`} className={styles["pr-menu__item"]}>
                   <span className="pr-icon-user --font-12"></span>
                 </NavLink>
                 <button onClick={handleLogout} className={styles["pr-menu__item"]}>
@@ -100,7 +104,7 @@ const Header = () => {
           </nav>
         </div>
       </div>
-    </section>
+    </header>
   );
 };
 
