@@ -22,6 +22,12 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.pr-icon-camera-2:before {
+  content: "\e980";
+}
+.pr-icon-camera-3:before {
+  content: "\e981";
+}
 .pr-icon-pablologo:before {
     content: "\e93a";
 }

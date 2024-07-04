@@ -8,121 +8,110 @@ import Loading from "../../components/Loading";
 //hooks
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink, useParams } from "react-router-dom";
 
 //Redux
-import { profile, resetMessage } from "../../slices/userSlice";
+import { profile } from "../../slices/userSlice";
+import { getUserDetails } from "../../slices/userSlice";
 
 const Profile = () => {
-  const inputRef = useRef(null);
 
-  const { user, message, error, loading } = useSelector((state) => state.user);
+    const [title, setTitle] = useState("");
+    const [previewImagePost, setPreviewImagePost] = useState();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const [bio, setBio] = useState("");
-  const [password, setPassword] = useState("");
-  const [previewImage, setPreviewImage] = useState("");
+    const {id} = useParams();
+    const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
+    const { user, loading } = useSelector((state) => state.user);
+    const { user: userAuth } = useSelector((state) => state.auth);
 
-  //Edit image
-  const handleButtonClick = () => {  
-    inputRef.current.click();
-  };
-  const handleSubmitImage = (e) => {
-    e.preventDefault();
-  };
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const selectedImage = e.target.files[0];
-      setPreviewImage(URL.createObjectURL(selectedImage));
-      handleSubmitImage(e);
+
+    //New form and edit form ref
+    const inputRef = useRef(null);
+    const newPhotoForm = useRef();
+    const editPhotoForm = useRef();
+
+    //Load user data
+    useEffect(() => {
+        dispatch(getUserDetails(id));
+    }, [dispatch, id])
+
+
+    //Set image preview post
+    const handleButtonClick = () => {  
+        inputRef.current.click();
+    };
+    const handleFileChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            const selectedImage = e.target.files[0];
+            setPreviewImagePost(URL.createObjectURL(selectedImage));
+        }
+    };
+
+    //Submit
+    const handleSubmit = (e) => {
+        e.preventDefault();
     }
-  };
-
-  //Load user data
-  useEffect(() => {
-    dispatch(profile());
-  }, [dispatch])
-
-  //Fill form with user data
-  useEffect(() => {
-    if(user){
-      setName(user.name);
-      setEmail(user.email);
-      setBio(user.bio);
-    }
-  },[user])
-
-  //Edit data
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   return (
     <>
-      {error  && (
-        <Message key={1} type={error ? "--warning" : "--positive"} duration={5000}>{error}</Message>
-      )}
-      {/* {loading && <Loading />} */}
-      <div className="pr-page__content --f-center">
-        <div className={styles["pr-page__profile"]}>
-          <h1>Editar perfil</h1>
-          <form className="--wd-100 pr-box__form --fcol --fgap-30" onSubmit={handleSubmitImage}>
-            <div className={styles["pr-profile__editInput"]}>
-              <div className="--wd-100 --frow-center --fgap-20">
-                {
-                  !previewImage ? (
-                    user.profileImage ? (
-                      <div className={styles["pr-profile__image"]} style={{ background: `url('${uploads}/users/${user.profileImage}')` }}></div>
-                    ) : (
-                      <div className={styles["pr-profile__image"]} style={{ background: `url('${previewImage}')` }}><span className="pr-icon-user"></span></div>
-                    )
-                  ) : (
-                    <div className={styles["pr-profile__image"]} style={{ background: `url('${previewImage}')` }}></div>
-                  )
-                }
-                <div className={styles["pr-profile__user"]}>
-                  <p>{name}</p>
-                  <p>{email}</p>
+        {loading && <Loading />}
+        <div className="pr-page__content --f-center">
+            <div className={styles["pr-page__profile"]}>
+                <div className="--fcol --fgap-30">
+                    <h1>Perfil</h1>
+                    <div className={styles["pr-profile__editInput"]}>
+                        <div className="--wd-100 --frow-center --fgap-20">
+                            {
+                                user.profileImage ? (
+                                    <div className={styles["pr-profile__image"]} style={{ background: `url('${uploads}/users/${user.profileImage}')` }}></div>
+                                ) : (
+                                    <div className={styles["pr-profile__image"]}><span className="pr-icon-user"></span></div>
+                                )
+                            }
+                            <div className={styles["pr-profile__user"]}>
+                                <p>{user.name}</p>
+                                <p>{user.bio}</p>
+                            </div>
+                            {
+                                id === userAuth._id && (
+                                    <NavLink to={`/users/${user._id}`} className="pr-button --small --outline">Editar perfil</NavLink>
+                                )
+                            }
+                        </div>
+                    </div>
                 </div>
-                <button className="pr-button --small" onClick={handleButtonClick}>Alterar foto</button>
-                <input ref={inputRef} type="file" style={{display:"none"}} onChange={handleFileChange}></input>
-              </div>
+                <div className={styles["pr-form__shared"]}>
+                    <div className="--fcol --fgap-30">
+                        <h1>Compartilhe algo</h1>
+                        <form className="--wd-100 pr-box__form --fcol --fgap-30" onSubmit={handleSubmit}>
+                            <div className="--wd-100 --frow-start --fgap-20">
+                                <div className="--wd-auto">
+                                    {
+                                        previewImagePost ? (
+                                            <div className={styles["pr-post__image"]} onClick={handleButtonClick} style={{ background: `url('${previewImagePost}')` }}></div>
+                                        ) : (
+                                            <div className={styles["pr-post__image"]} onClick={handleButtonClick}>
+                                                <span className="pr-icon-camera-3"></span>
+                                                <p>Alterar Foto</p>
+                                            </div>
+                                        )
+                                    }
+                                    <input ref={inputRef} type="file" style={{display:"none"}} onChange={handleFileChange}></input>
+                                </div>
+                                <div className="--flex-1 --fcol --fgap-10">
+                                    <p>Título</p>
+                                    <label className="pr-box__input">
+                                        <input type="text" value={title || ""} onChange={(e) => setTitle(e.target.value)} placeholder="Informe um título para a foto"></input>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" className="pr-button --primary">Postar</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-          </form>
-          <form className="--wd-100 pr-box__form --fcol --fgap-30" onSubmit={handleSubmit}>
-            <div className="--wd-100 --fcol --fgap-20">
-              <div className="--wd-100 --fcol --fgap-10">
-                <p>Nome</p>
-                <label className="pr-box__input">
-                  <input type="email" value={name || ""} onChange={(e) => setName(e.target.value)} placeholder="Deigite seu e-mail"></input>
-                </label>
-              </div>
-              <div className="--wd-100 --fcol --fgap-10">
-                <p>E-mail</p>
-                <label className="pr-box__input">
-                  <input type="email" value={email || ""} disabled placeholder=""></input>
-                </label>
-              </div>
-              <div className="--wd-100 --fcol --fgap-10">
-                <p>Bio</p>
-                <label className="pr-box__input">
-                  <input type="email" value={bio || ""} onChange={(e) => setBio(e.target.value)} placeholder="Descrição perfil"></input>
-                </label>
-              </div>
-              <div className="--wd-100 --fcol --fgap-10">
-                <p>Alterar senha</p>
-                <label className="pr-box__input">
-                  <input type="password" value={password || ""} onChange={(e) => setPassword(e.target.value)} placeholder="Digite uma nova senha"></input>
-                </label>
-              </div>
-            </div>
-            <button type="submit" className="pr-button --primary"> Salvar</button>
-          </form>
         </div>
-      </div>
     </>
   );
 };

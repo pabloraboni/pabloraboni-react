@@ -14,6 +14,7 @@ import App from './App.jsx'
 import NotFound from './pages/404/NotFound.jsx'
 import Home from './pages/Home/Home.jsx'
 import Profile from './pages/Profile/Profile.jsx'
+import EditProfile from './pages/EditProfile/EditProfile.jsx'
 import Login from './pages/Auth/Login.jsx'
 import Register from './pages/Auth/Register.jsx'
 
@@ -33,12 +34,12 @@ const router = createBrowserRouter([
         
       },
       {
-        path:"/users/:id",
+        path:"/profile/:id",
         element: (<ProtectedRoute><Profile /></ProtectedRoute>)
       },
       {
-        path:"/profile",
-        element: (<ProtectedRoute><Profile /></ProtectedRoute>)
+        path:"/users/:id",
+        element: (<ProtectedRoute><EditProfile /></ProtectedRoute>)
       },
       {
         path:"/login",
