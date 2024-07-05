@@ -12,7 +12,51 @@
     p{
         font-size: 0.9em;
         color: #8f8f8f;
-        font-weight: 600;
+        // font-weight: 600;
+    }
+}
+
+.pr-comments{
+    @include mx-flex();
+    @include mx-flex-column();
+    gap: 20px;
+
+    .pr-comment__user{
+        @include mx-flex();
+        @include mx-flex-column();
+        text-decoration: none;
+    }
+    .pr-user{
+        @include mx-flex();
+        @include mx-flex-row();
+        @include mx-flex-align-center();
+        gap: 10px;
+        text-decoration: none;
+        &:hover{
+            opacity: 0.6;
+        }
+        p{
+            color: #000;
+        }
+        .pr-user__image{
+            font-family: 'icomoon' !important;
+            width: 30px;
+            height: 30px;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            border-radius: 50%;
+            @include mx-flex();
+            @include mx-flex-center();
+            &:before{
+                content: "\e912";
+            }
+        }
+    }
+    .pr-comment{
+        padding-left: 40px;
+        font-size: 0.8em;
+        
     }
 }
 

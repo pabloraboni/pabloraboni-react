@@ -1,2 +1,9 @@
 // Definindo variáveis
 $primary-color: #5658d8;
+
+.--color-primary{
+    color: $primary-color;
+}
+.--color-gray{
+    color: #424242;
+}

@@ -18,6 +18,7 @@ import EditProfile from './pages/EditProfile/EditProfile.jsx'
 import Login from './pages/Auth/Login.jsx'
 import Register from './pages/Auth/Register.jsx'
 import Photo from './pages/Photo/Photo.jsx'
+import Search from './pages/Search/Search.jsx'
 
 //redirect routes
 import PublicRoute from './components/PublicRoute.jsx'
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path:"/",
         element: (<ProtectedRoute><Home /></ProtectedRoute>)
+      },
+      {
+        path:"/search",
+        element: (<ProtectedRoute><Search /></ProtectedRoute>)
       },
       {
         path:"/users/:id",

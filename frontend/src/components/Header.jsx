@@ -21,6 +21,7 @@ import {
 const Header = () => {  
   const { auth, loading } = useAuth();
   const { user } = useSelector((state) => state.auth);
+  const [ query, setQuery] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,6 +32,13 @@ const Header = () => {
 
     navigate("/login");
 
+  }
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if(query){
+      return navigate(`/search?q=${query}`);
+    }
   }
 
   const [isFocusedSearch, setIsFocusedSearch] = useState(true);
@@ -55,17 +63,10 @@ const Header = () => {
 
           {auth && (
             <>
-              <form className="pr-box__form">
-                <label
-                  className={`pr-box__input ${isFocusedSearch ? "--icon" : ""}`}
-                >
+              <form className="pr-box__form" onSubmit={handleSearch}>
+                <label className={`pr-box__input ${isFocusedSearch ? "--icon" : ""}`} >
                   {isFocusedSearch && <span className="pr-icon-search"></span>}
-                  <input
-                    type="text"
-                    placeholder="Pesquise algo"
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                  ></input>
+                  <input type="text" onChange={(e) => setQuery(e.target.value)} placeholder="Pesquise algo" onFocus={handleFocus} onBlur={handleBlur}></input>
                 </label>
               </form>
             </>

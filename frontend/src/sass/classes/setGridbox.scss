@@ -8,7 +8,7 @@
         @include mx-grid-auto($i);
     }
 }
-@for $i from 1 through 30 {
+@for $i from 1 through 100 {
     .--ggap-#{$i}{
         grid-column-gap: ($i * 0.06)+rem;
         grid-row-gap: ($i * 0.06)+rem;
