@@ -22,6 +22,37 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.pr-icon-expand:before {
+    content: "\e9a9";
+}
+.pr-icon-heart2:before {
+  content: "\e98f";
+  color: #5f6368;
+}
+.pr-icon-heart2-outline:before {
+  content: "\e9a1";
+  color: #5f6368;
+}
+.pr-icon-addphoto:before {
+  content: "\e9a2";
+  color: #5f6368;
+}
+.pr-icon-addphoto-2:before {
+  content: "\e9a3";
+  color: #5f6368;
+}
+.pr-icon-delete-2:before {
+  content: "\e9a4";
+  color: #5f6368;
+}
+.pr-icon-edit-2:before {
+  content: "\e9a6";
+  color: #5f6368;
+}
+.pr-icon-view-4:before {
+  content: "\e9a7";
+  color: #5f6368;
+}
 .pr-icon-heart:before {
     content: "\e98d";
 }
@@ -562,7 +593,7 @@
     content: "\e975";
 }
 
-.pr-icon-protetor-solar:before {
+.pr-pr-otetor-solar:before {
     content: "\e976";
 }
 

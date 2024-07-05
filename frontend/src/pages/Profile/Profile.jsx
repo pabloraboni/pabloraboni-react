@@ -12,8 +12,9 @@ import { NavLink, useParams } from "react-router-dom";
 
 //Redux
 import { getUserDetails } from "../../slices/userSlice";
-import { publishPhoto, getUserPhotos, resetMessage } from "../../slices/photoSlice";
+import { publishPhoto, getUserPhotos, deletePhoto, resetMessage, updatePhoto } from "../../slices/photoSlice";
 import Notification from "../../components/Notification";
+import Confirm from "../../components/Confirm";
 
 const Profile = () => {
 
@@ -29,6 +30,16 @@ const Profile = () => {
     const [image, setImage] = useState("");
     const [previewImage, setPreviewImage] = useState("");
 
+    const [editId, setEditId] = useState("");
+    const [editImage, setEditImage] = useState("");
+    const [editTitle, setEditTitle] = useState("");
+
+
+    const resetComponentMessage = () => {
+        setTimeout(() => {
+            dispatch(resetMessage());
+        }, 5000)
+    }
 
     //New form and edit form ref
     const newPhotoForm = useRef();
@@ -56,30 +67,79 @@ const Profile = () => {
 
     //Submit
     const handleSubmit = async (e) => {
-
         e.preventDefault();
         const photoData = {
             title,
             image,
         };
-
         // build form data
         const formData = new FormData();
         const photoFormData = Object.keys(photoData).forEach((key) =>formData.append(key, photoData[key]));
         formData.append("photo", photoFormData);
         dispatch(publishPhoto(formData));
-
         setPreviewImage("");
         setTitle("");
+        resetComponentMessage();
+    }
 
-        setTimeout(() => {
-            dispatch(resetMessage());
-        }, 5000)
+    //Delete photo confirmation
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [photoIdToDelete, setPhotoIdToDelete] = useState(null);
 
+    const handleDelete = (id) => {
+        setPhotoIdToDelete(id)
+        setShowConfirm(true);
+    }
+    const handleCancel = () => {
+        setPhotoIdToDelete(null);
+        setShowConfirm(false);
+    };
+    const handleConfirm = () => {
+        dispatch(deletePhoto(photoIdToDelete))
+        resetComponentMessage();
+        setShowConfirm(false);
+    };
+
+    //Show or hide forms
+    const hideOrShowForms = () => {
+        newPhotoForm.current.classList.toggle(styles['--hide']);
+        editPhotoForm.current.classList.toggle(styles['--hide']);
+    }
+    
+    //Update a photo
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        const photoData = {
+            title: editTitle,
+            id: editId
+        }
+        dispatch(updatePhoto(photoData));
+        resetComponentMessage();
+    }
+
+    //Opem edit form
+    const handleEdit = (photo) => {
+        if(editPhotoForm.current.classList.contains(styles['--hide'])){
+            hideOrShowForms();
+        }
+        setEditId(photo._id);
+        setEditTitle(photo.title);
+        setEditImage(photo.image);
+        editPhotoForm.current.scrollIntoView({ behavior: 'smooth' });
+    }
+    const handleCancelEdit = () => {
+        hideOrShowForms();  
     }
 
   return (
     <>
+        {
+            showConfirm && (
+                <Confirm onConfirm={handleConfirm} onCancel={handleCancel}>
+                    Tem certeza que deseja excluir esta foto?
+                </Confirm>
+            )
+        }
         {errorPhoto  && (
         <Message key={1} type="--warning" duration={5000}>{errorPhoto}</Message>
         )}
@@ -115,18 +175,18 @@ const Profile = () => {
                 {
                     id === userAuth._id && (
                         <>
-                            <div className={styles["pr-form__shared"]}>
+                            <div ref={newPhotoForm} className={styles["pr-form__shared"]}>
                                 <div className="--fcol --fgap-30">
                                     <h1>Compartilhe algo</h1>
                                     <form className="--wd-100 pr-box__form --fcol --fgap-30" onSubmit={handleSubmit}>
-                                        <div className="--wd-100 --frow-start --fgap-20">
-                                            <div className="--wd-auto">
+                                        <div className="--wd-100 --fcol --fgap-20">
+                                            <div className="--wd-100">
                                                 {
                                                     previewImage ? (
                                                         <div className={styles["pr-shared__image"]} onClick={handleButtonClick} style={{ background: `url('${previewImage}')` }}></div>
                                                     ) : (
                                                         <div className={styles["pr-shared__image"]} onClick={handleButtonClick}>
-                                                            <span className="pr-icon-camera-3"></span>
+                                                            <span className="pr-icon-addphoto"></span>
                                                             <p>Alterar Foto</p>
                                                         </div>
                                                     ) 
@@ -145,36 +205,60 @@ const Profile = () => {
                                     </form>
                                 </div>
                             </div>
+                            <div ref={editPhotoForm} className={`${styles["pr-form__shared"]} ${styles["--hide"]}`}>
+                                <div className="--fcol --fgap-30">
+                                    <h1>Editando</h1>
+                                    <form className="--wd-100 pr-box__form --fcol --fgap-30" onSubmit={handleUpdate}>
+                                        <div className="--wd-100 --fcol --fgap-20">
+                                            <div className="--wd-100">
+                                                {
+                                                    editImage && (
+                                                        <div className={styles["pr-shared__image"]} style={{ background: `url('${uploads}/photos/${editImage}')` }}></div>
+                                                    )
+                                                }
+                                            </div>
+                                            <div className="--flex-1 --fcol --fgap-10">
+                                                <p>Título</p>
+                                                <label className="pr-box__input">
+                                                    <input type="text" value={editTitle || ""} onChange={(e) => setEditTitle(e.target.value)} placeholder="Informe um título para a foto"></input>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="--wd-100 --frow-centerend --fgap-10">
+                                            <input type="button" className="pr-button --outline --primary" onClick={handleCancelEdit} value="Cancelar Edição"/>
+                                            <button type="submit" className="pr-button --primary">Atualizar foto</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </>
                     )
                 }
 
                 <div className={styles["pr-photos__posteds"]}>
-                    <h1>Fotos</h1>
-
-                    
-
-                    <div className="--fcol --fgap-50">
+                    <h1>Fotos publicadas</h1>
+                    <div className="--grid-2 --ggap-20">
                         {
                             photos && photos.map((photo, i) => (
                                 <div key={i} className={styles["pr-post"]}>
+                                    <div className="--wd-100 --fcol --fgap-5">
+                                        <h2>{photo.title}</h2>
+                                        {/* <p>Por: {photo.userName}</p> */}
+                                    </div>
                                     {photo.image && <div className={styles["pr-post__image"]} onClick={handleButtonClick} style={{ background: `url('${uploads}/photos/${photo.image}')` }}></div>}
-                                    <div className="--wd-100 --frow-start --fgap-10">
-                                        <div className="--flex-1 --fcol --fgap-5">
-                                            <h2>{photo.title}</h2>
-                                            <p>Por: {photo.userName}</p>
-                                        </div>
-                                        <div className="--wd-auto --frow-center --fgap-10">
+                                    <div className="--wd-100 --frow-centerend --fgap-10">
+                                        <div className="--wd-100 --frow-centerend --fgap-20">
                                             {
                                                 id === userAuth._id ? (
                                                     <>
-                                                        <button className="pr-icon-heart-outline --font-16"></button>
-                                                        <NavLink to={`/photos/${photo._id}`} className="pr-icon-view-2 --font-16"></NavLink>
+                                                        <button onClick={() => handleEdit(photo)} className="pr-icon-edit-2 --font-16"></button>
+                                                        <button onClick={() => handleDelete(photo._id)} className="pr-icon-delete --font-12"></button>
+                                                        <NavLink to={`/photos/${photo._id}`} className="pr-icon-expand --font-16"></NavLink>
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <button className="pr-icon-heart-outline --font-16"></button>
-                                                        <NavLink to={`/photos/${photo._id}`} className="pr-icon-view-2 --font-16"></NavLink>
+                                                        <button className="pr-icon-heart2-outline --font-16"></button>
+                                                        <NavLink to={`/photos/${photo._id}`} className="pr-icon-expand --font-16"></NavLink>
                                                     </>
                                                 )
                                             }
@@ -193,6 +277,8 @@ const Profile = () => {
                 </div>
             </div>
         </div>
+
+        
     </>
   );
 };

@@ -1,0 +1,97 @@
+@import "../sass/importMixins.scss";
+
+.pr-modal__confirm{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    @include mx-flex();
+    @include mx-flex-center();
+    background: #ffffffe2;
+    z-index: 99;
+}
+.pr-confirm__content{
+    width: 100%;
+    max-width: 500px;
+    background: #f3f3f3;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 10px 5px #00000016;
+    @include mx-flex();
+    @include mx-flex-column();
+    gap:30px;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+
+    &.--enter {
+        animation: slideInRight 0.5s forwards;
+    }
+    &.--exit {
+        animation: slideOutRight 0.5s forwards;
+    }
+
+    p{
+        font-size: 0.9em;;
+    }
+
+}
+.pr-confirm__head{
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 15px;
+    @include mx-flex();
+    @include mx-flex-row();
+    @include mx-flex-align-center();
+    p{
+        flex:1;
+        font-weight: bold;
+    } 
+}
+.pr-confirm__foot{
+    border-top: 1px solid #e5e5e5;
+    padding-top: 15px;
+    @include mx-flex();
+    @include mx-flex-row();
+    @include mx-flex-align-center();
+    @include mx-flex-justify-end();
+    gap:10px;
+}
+.pr-confirm__close{
+    font-family: 'icomoon' !important;
+    @include mx-flex();
+    @include mx-flex-center();
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background: #0000000f;
+    color: #7c7c7c;
+    font-size: 0.8em;
+    text-transform: none;
+    border: 0;
+    cursor: pointer;
+    &:before{
+        content: "\e9f6";
+    }
+}
+
+
+@keyframes slideOutRight {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

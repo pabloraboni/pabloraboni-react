@@ -1,0 +1,18 @@
+@import "../../sass/importMixins.scss";
+
+.pr-page__photo {
+    width: 100%;
+    max-width: 600px;
+    @include mx-flex();
+    @include mx-flex-column();
+    gap: 60px;
+    h1{
+        font-size: 1.2em;
+    }
+    p{
+        font-size: 0.9em;
+        color: #8f8f8f;
+        font-weight: 600;
+    }
+}
+

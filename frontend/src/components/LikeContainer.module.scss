@@ -1,0 +1,11 @@
+@import "../sass/importMixins.scss";
+
+.pr-like{
+    @include mx-flex();
+    @include mx-flex-row();
+    @include mx-flex-align-center();
+    gap: 10px;
+    p{
+        font-size: 0.8em;
+    }
+}

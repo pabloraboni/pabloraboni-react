@@ -17,6 +17,7 @@ import Profile from './pages/Profile/Profile.jsx'
 import EditProfile from './pages/EditProfile/EditProfile.jsx'
 import Login from './pages/Auth/Login.jsx'
 import Register from './pages/Auth/Register.jsx'
+import Photo from './pages/Photo/Photo.jsx'
 
 //redirect routes
 import PublicRoute from './components/PublicRoute.jsx'
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path:"/profile",
         element: (<ProtectedRoute><EditProfile /></ProtectedRoute>)
+      },
+      {
+        path:"/photos/:id",
+        element: (<ProtectedRoute><Photo /></ProtectedRoute>)
       },
       {
         path:"/login",
