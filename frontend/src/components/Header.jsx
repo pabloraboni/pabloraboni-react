@@ -10,14 +10,6 @@ import { NavLink } from "react-router-dom";
 //Redux
 import {logout, reset} from "../slices/authSlice";
 
-//icons
-import {
-  BsSearch,
-  BsHouseDoorFill,
-  BsFillPersonFill,
-  BsFillCameraFill,
-} from "react-icons/bs";
-
 const Header = () => {  
   const { auth, loading } = useAuth();
   const { user } = useSelector((state) => state.auth);
