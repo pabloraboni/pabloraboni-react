@@ -25,6 +25,9 @@ FROM nginx:alpine
 # Copiar os arquivos de build do Vite para o diretório do nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# Copiar o arquivo de configuração do nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Expor a porta que a aplicação irá rodar
 EXPOSE 80
 
