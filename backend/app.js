@@ -10,7 +10,7 @@ const app = express();
 
 //config JSON and form data response
 app.use(express.json());
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({ extended: true }));
 
 //solve CORS
 app.use(cors({credentials:true, origin: "http://localhost:5173"}));

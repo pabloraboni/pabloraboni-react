@@ -20,9 +20,9 @@ const EditProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
   const [bio, setBio] = useState("");
   const [password, setPassword] = useState("");
-  const [previewImage, setPreviewImage] = useState("");
 
   const dispatch = useDispatch();
 

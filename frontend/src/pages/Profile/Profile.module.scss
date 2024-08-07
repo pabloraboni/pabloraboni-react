@@ -76,6 +76,7 @@
         display: none;
     }
 }
+
 .pr-shared__image{
     @include mx-flex();
     @include mx-flex-column();
@@ -111,6 +112,7 @@
     @include mx-flex-column();
     gap: 30px;
 }
+
 .pr-post{
     @include mx-flex();
     @include mx-flex-column();
@@ -133,6 +135,7 @@
         }
     }
 }
+
 .pr-post__image{
     @include mx-flex();
     @include mx-flex-column();
